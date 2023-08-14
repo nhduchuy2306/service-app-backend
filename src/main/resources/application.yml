@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: happygear
+  datasource:
+    url: jdbc:mysql://localhost:3306/happyclean
+    username: root
+    password: 12345
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+        show_sql: true
+        use_sql_comments: true
+
+server:
+  port: 8080
+  servlet:
+    context-path: /happyclean
+
+momo:
+  partnerCode: MOMOI3J920220921
+  accessKey: yzp3lsHbJJifAkNU
+  secretKey: CJLOBZMb1CpjqpDl9bhA9zqnCTv2ThSY
+  endPoint: https://test-payment.momo.vn/v2/gateway/api/create
+  returnUrl: https://my-happygear.azurewebsites.net/happygear/api/payment/momo-info
+  notifyUrl: http://localhost:8080/ETrans/MoMoNotify
