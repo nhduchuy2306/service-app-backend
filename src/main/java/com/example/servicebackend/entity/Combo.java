@@ -35,7 +35,7 @@ public class Combo {
     @Column(name = "combo_price")
     private String comboPrice;
 
-    @Column(name = "combo_image")
+    @Column(name = "combo_type")
     private Enum<ComboEnum> comboType;
 
     @Column(name = "start_date")
