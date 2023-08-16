@@ -1,0 +1,12 @@
+spring:
+  config:
+    activate:
+      on-profile: stag
+  datasource:
+    url: jdbc:mysql://mysql:3306/happyclean
+    username: root
+    password: happyclean
+  flyway:
+    enabled: true
+    locations: classpath:db/migration/{vendor}
+    baselineOnMigrate: true

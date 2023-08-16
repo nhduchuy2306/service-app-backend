@@ -1,10 +1,8 @@
 spring:
   application:
     name: happyclean
-  datasource:
-    url: jdbc:mysql://mysql:3306/happyclean
-    username: root
-    password: 12345
+  profiles:
+    active: @profileActive@
   jpa:
     hibernate:
       ddl-auto: update
