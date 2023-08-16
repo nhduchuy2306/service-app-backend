@@ -1,33 +1,42 @@
 package com.example.servicebackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "payment_method")
 @Data
-public class PaymentMethod {
+public class PaymentMethod implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name="payment_method_id")
-    private String paymentMethodId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "payment_method_id")
+    private Long paymentMethodId;
 
-    @Column(name="payment_method_name")
+    @Column(name = "payment_method_name")
     private String paymentMethodName;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="payment_method_type")
+    @Column(name = "payment_method_type")
     private String paymentMethodType;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonManagedReference
+    private User user;
+
+    @OneToMany(mappedBy = "paymentMethod", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<PaymentTransaction> paymentTransactions;
+
 }

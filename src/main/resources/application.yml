@@ -1,10 +1,10 @@
 spring:
   application:
-    name: happygear
+    name: happyclean
   datasource:
     url: jdbc:mysql://mysql:3306/happyclean
     username: root
-    password: happyclean
+    password: 12345
   jpa:
     hibernate:
       ddl-auto: update

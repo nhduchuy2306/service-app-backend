@@ -1,34 +1,35 @@
 package com.example.servicebackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.io.Serializable;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "service")
-public class Service {
+public class Service implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name="service_id")
-    private UUID serviceId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "service_id")
+    private Long serviceId;
 
-    @Column(name="service_name")
+    @Column(name = "service_name")
     private String serviceName;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="price")
+    @Column(name = "price")
     private Double price;
+
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<ServiceRequest> serviceRequests;
 }

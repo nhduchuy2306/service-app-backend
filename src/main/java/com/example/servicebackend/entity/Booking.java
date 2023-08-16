@@ -1,32 +1,52 @@
 package com.example.servicebackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "booking")
-public class Booking {
+public class Booking implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name="booking_id")
-    private UUID bookingId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "booking_id")
+    private Long bookingId;
 
-    @Column(name="start_date")
+    @Column(name = "start_date")
     private Date startDate;
 
-    @Column(name="end_date")
+    @Column(name = "end_date")
     private Date endDate;
+
+    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Report> reports;
+
+    @ManyToOne
+    @JoinColumn(name = "partner_id")
+    @JsonManagedReference
+    private Partner partner;
+
+    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Notification> notifications;
+
+    @OneToOne(mappedBy = "booking", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private PaymentTransaction paymentTransaction;
+
+    @OneToOne
+    @JoinColumn(name = "request_id")
+    @JsonManagedReference
+    private ServiceRequest serviceRequest;
 }

@@ -1,14 +1,16 @@
 package com.example.servicebackend.entity;
 
 import com.example.servicebackend.enum_type.ComboEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,15 +18,11 @@ import java.util.UUID;
 @Entity
 @Builder
 @Table(name = "combo")
-public class Combo {
+public class Combo implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @org.hibernate.annotations.GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "combo_id")
-    private UUID comboId;
+    private Long comboId;
 
     @Column(name = "combo_name")
     private String comboName;
@@ -43,4 +41,8 @@ public class Combo {
 
     @Column(name = "end_date")
     private Date endDate;
+
+    @OneToMany(mappedBy = "combo", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<ComboAssociation> comboAssociations;
 }

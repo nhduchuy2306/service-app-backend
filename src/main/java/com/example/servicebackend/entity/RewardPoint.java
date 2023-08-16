@@ -1,13 +1,15 @@
 package com.example.servicebackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.io.Serializable;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,16 +17,21 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "reward_point")
-public class RewardPoint {
+public class RewardPoint implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name="reward_point_id")
-    private UUID rewardPointId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "reward_point_id")
+    private Long rewardPointId;
 
-    @Column(name="reward_point_amount")
+    @Column(name = "reward_point_amount")
     private String rewardPointAmount;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonManagedReference
+    private User user;
+
+    @OneToMany(mappedBy = "rewardPoint", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<UserDiscount> userDiscounts;
 }

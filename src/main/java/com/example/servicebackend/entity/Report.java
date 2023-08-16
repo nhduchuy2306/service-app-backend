@@ -1,28 +1,34 @@
 package com.example.servicebackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "report")
-public class Report {
+public class Report implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "report_id")
-    private UUID reportId;
+    private Long reportId;
 
     @Column(name = "content")
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonManagedReference
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
+    @JsonManagedReference
+    private Booking booking;
 }
