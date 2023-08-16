@@ -3,6 +3,6 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/happyclean
+    url: jdbc:mysql://localhost:3309/happyclean
     username: root
     password: happyclean
