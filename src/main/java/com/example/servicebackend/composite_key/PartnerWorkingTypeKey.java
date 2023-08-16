@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class PartnerWorkingTypeKey implements Serializable {
-    private Long partnerId;
+    private String partnerId;
     private Long serviceId;
 }

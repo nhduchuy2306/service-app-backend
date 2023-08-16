@@ -5,10 +5,12 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.example.servicebackend.composite_key.PartnerWorkingTypeKey;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
@@ -22,15 +24,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "partner_working_type")
 @AllArgsConstructor
 @NoArgsConstructor
+@IdClass(PartnerWorkingTypeKey.class)
 public class PartnerWorkingType implements Serializable {
-
     @Id
     @Column(name = "partner_id")
     private String partnerId;
 
     @Id
     @Column(name = "service_id")
-    private String serviceId;
+    private Long serviceId;
 
     @Column(name = "status")
     private String status;
