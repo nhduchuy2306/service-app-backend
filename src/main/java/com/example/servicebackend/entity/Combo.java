@@ -34,6 +34,7 @@ public class Combo implements Serializable {
     private String comboPrice;
 
     @Column(name = "combo_type")
+    @Enumerated(EnumType.STRING)
     private ComboEnum comboType;
 
     @Column(name = "start_date")
