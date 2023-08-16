@@ -26,6 +26,21 @@ public class ServiceRequest implements Serializable {
     @Column(name = "location")
     private String location;
 
+    @Column(name = "start_time")
+    private String startTime;
+
+    @Column(name = "end_time")
+    private String endTime;
+
+    @Column(name = "start_date")
+    private String startDate;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonManagedReference

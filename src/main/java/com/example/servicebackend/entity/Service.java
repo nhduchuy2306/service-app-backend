@@ -32,4 +32,8 @@ public class Service implements Serializable {
     @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<ServiceRequest> serviceRequests;
+
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<PartnerWorkingType> partnerWorkingTypes;
 }

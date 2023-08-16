@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,11 +21,8 @@ public class Booking implements Serializable {
     @Column(name = "booking_id")
     private Long bookingId;
 
-    @Column(name = "start_date")
-    private Date startDate;
-
-    @Column(name = "end_date")
-    private Date endDate;
+    @Column(name = "status")
+    private String status;
 
     @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
     @JsonBackReference

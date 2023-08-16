@@ -24,13 +24,33 @@ public class Partner implements Serializable {
     @Column(name = "partner_name")
     private String partnerName;
 
-    @Column(name = "email")
+    @Column(unique = true)
     private String email;
 
     @Column(name = "location")
     private String location;
 
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "status")
+    private String status;
+
     @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Booking> bookings;
+
+    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<PartnerWorkingType> partnerWorkingTypes;
+
+    @OneToOne(mappedBy = "partner", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Wallet wallet;
 }

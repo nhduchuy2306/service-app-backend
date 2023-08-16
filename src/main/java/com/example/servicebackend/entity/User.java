@@ -30,6 +30,12 @@ public class User implements Serializable {
     @Column(name = "location")
     private String location;
 
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<RewardPoint> rewardPoints;
