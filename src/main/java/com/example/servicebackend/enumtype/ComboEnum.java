@@ -1,4 +1,4 @@
-package com.example.servicebackend.enum_type;
+package com.example.servicebackend.enumtype;
 
 public enum ComboEnum {
     WEEKLY, MONTHLY, YEARLY

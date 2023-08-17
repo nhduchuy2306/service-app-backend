@@ -1,4 +1,4 @@
-package com.example.servicebackend.composite_key;
+package com.example.servicebackend.compositekey;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

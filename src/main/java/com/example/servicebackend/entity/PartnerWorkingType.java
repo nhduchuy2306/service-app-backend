@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.example.servicebackend.composite_key.PartnerWorkingTypeId;
+import com.example.servicebackend.compositekey.PartnerWorkingTypeId;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
