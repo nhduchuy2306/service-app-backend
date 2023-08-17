@@ -1,4 +1,4 @@
-package com.example.servicebackend.entity;
+package com.example.servicebackend.model.entity;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.example.servicebackend.compositekey.PartnerWorkingTypeId;
+import com.example.servicebackend.model.compositekey.PartnerWorkingTypeId;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;

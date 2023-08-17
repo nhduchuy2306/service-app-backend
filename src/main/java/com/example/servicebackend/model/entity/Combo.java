@@ -1,6 +1,6 @@
-package com.example.servicebackend.entity;
+package com.example.servicebackend.model.entity;
 
-import com.example.servicebackend.enumtype.ComboEnum;
+import com.example.servicebackend.model.enumtype.ComboEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

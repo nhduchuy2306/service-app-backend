@@ -1,4 +1,4 @@
-package com.example.servicebackend.enumtype;
+package com.example.servicebackend.model.enumtype;
 
 public enum ServiceRequestEnum {
     SINGLE, MULTIPLE

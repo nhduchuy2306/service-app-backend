@@ -1,6 +1,6 @@
-package com.example.servicebackend.entity;
+package com.example.servicebackend.model.entity;
 
-import com.example.servicebackend.compositekey.ComboAssociationId;
+import com.example.servicebackend.model.compositekey.ComboAssociationId;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;

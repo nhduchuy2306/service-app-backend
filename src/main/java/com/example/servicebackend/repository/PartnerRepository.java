@@ -1,6 +1,6 @@
 package com.example.servicebackend.repository;
 
-import com.example.servicebackend.entity.Partner;
+import com.example.servicebackend.model.entity.Partner;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
