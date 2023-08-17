@@ -1,11 +1,9 @@
 package com.example.servicebackend.repository;
 
+import com.example.servicebackend.model.entity.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.example.servicebackend.model.entity.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
-    
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
 }
