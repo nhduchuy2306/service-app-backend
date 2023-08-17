@@ -1,6 +1,6 @@
 package com.example.servicebackend.entity;
 
-import com.example.servicebackend.composite_key.ComboAssociationKey;
+import com.example.servicebackend.composite_key.ComboAssociationId;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "combo_association")
-@IdClass(ComboAssociationKey.class)
+@IdClass(ComboAssociationId.class)
 public class ComboAssociation implements Serializable {
     @Id
     @Column(name = "combo_id")

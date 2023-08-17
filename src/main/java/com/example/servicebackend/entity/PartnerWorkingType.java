@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.example.servicebackend.composite_key.PartnerWorkingTypeKey;
+import com.example.servicebackend.composite_key.PartnerWorkingTypeId;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "partner_working_type")
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(PartnerWorkingTypeKey.class)
+@IdClass(PartnerWorkingTypeId.class)
 public class PartnerWorkingType implements Serializable {
     @Id
     @Column(name = "partner_id")

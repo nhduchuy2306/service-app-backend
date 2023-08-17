@@ -6,10 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class PartnerWorkingTypeKey implements Serializable {
+public class PartnerWorkingTypeId implements Serializable {
     private String partnerId;
     private Long serviceId;
 }

@@ -1,16 +1,16 @@
-spring:
-  config:
-    activate:
-      on-profile: dev
-  datasource:
-    url: jdbc:mysql://localhost:3309/happyclean
-    username: root
-    password: happyclean
-# spring:
-#   config:
-#     activate:
-#       on-profile: dev
-#   datasource:
-#     url: jdbc:mysql://localhost:3306/happyclean
-#     username: root
-#     password: 12345
+#spring:
+#  config:
+#    activate:
+#      on-profile: dev
+#  datasource:
+#    url: jdbc:mysql://localhost:3309/happyclean
+#    username: root
+#    password: happyclean
+ spring:
+   config:
+     activate:
+       on-profile: dev
+   datasource:
+     url: jdbc:mysql://localhost:3306/happyclean
+     username: root
+     password: 12345

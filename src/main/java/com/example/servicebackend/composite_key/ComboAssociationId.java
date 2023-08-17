@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class ComboAssociationKey implements Serializable {
+public class ComboAssociationId implements Serializable {
     private Long comboId;
     private Long requestId;
 }
