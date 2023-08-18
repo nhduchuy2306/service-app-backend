@@ -28,6 +28,14 @@ services:
       - mysql
     restart: unless-stopped
 
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8081:80"
+
 volumes:
   mysql:
   web-api:
+  nginx:
