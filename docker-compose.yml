@@ -33,7 +33,7 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
     ports:
-      - "8081:80"
+      - "80:80"
 
 volumes:
   mysql:
