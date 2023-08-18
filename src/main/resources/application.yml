@@ -1,8 +1,6 @@
 spring:
   application:
     name: happyclean
-  profiles:
-    active: @profileActive@
   datasource:
     url: jdbc:mysql://mysql:3306/happyclean
     username: root
