@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceDto {
+public class ServiceJobDto {
     private Long serviceId;
     private String serviceName;
     private String description;

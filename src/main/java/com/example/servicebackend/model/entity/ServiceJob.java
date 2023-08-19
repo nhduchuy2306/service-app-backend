@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "service")
-public class Service implements Serializable {
+@Table(name = "service_job")
+public class ServiceJob implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id")
@@ -29,11 +29,11 @@ public class Service implements Serializable {
     @Column(name = "price")
     private Double price;
 
-    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "serviceJob", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<ServiceRequest> serviceRequests;
 
-    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "serviceJob", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<PartnerWorkingType> partnerWorkingTypes;
 }

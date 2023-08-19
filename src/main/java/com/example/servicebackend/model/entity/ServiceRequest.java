@@ -21,7 +21,7 @@ public class ServiceRequest implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "request_id")
-    private Long RequestId;
+    private Long requestId;
 
     @Column(name = "location")
     private String location;
@@ -49,7 +49,7 @@ public class ServiceRequest implements Serializable {
     @ManyToOne
     @JoinColumn(name = "service_id")
     @JsonManagedReference
-    private Service service;
+    private ServiceJob serviceJob;
 
     @OneToMany(mappedBy = "serviceRequest", fetch = FetchType.LAZY)
     @JsonBackReference

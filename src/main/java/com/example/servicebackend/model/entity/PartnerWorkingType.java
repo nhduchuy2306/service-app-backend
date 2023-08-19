@@ -45,5 +45,5 @@ public class PartnerWorkingType implements Serializable {
     @ManyToOne
     @JoinColumn(name = "service_id", insertable = false, updatable = false)
     @JsonManagedReference
-    private Service service;
+    private ServiceJob serviceJob;
 }
