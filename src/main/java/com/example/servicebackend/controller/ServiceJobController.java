@@ -13,12 +13,12 @@ public class ServiceJobController {
 
     private final ServiceJobService serviceJobService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<?> getAllServices() {
         return ResponseEntity.ok(serviceJobService.getAllServices());
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<?> addService(@RequestBody ServiceJobDto serviceJobDto) {
         ServiceJobDto res = serviceJobService.addService(serviceJobDto);
         return ResponseEntity.created(null).body(res);

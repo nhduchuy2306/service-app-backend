@@ -16,7 +16,7 @@ public class ServiceRequestController {
 
     private final ServiceRequestService serviceRequestService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<?> addServiceRequest(@RequestBody ServiceRequestDto serviceRequestDto) {
         ServiceRequestDto res = serviceRequestService.addServiceRequest(serviceRequestDto);
         return ResponseEntity.created(null).body(res);
