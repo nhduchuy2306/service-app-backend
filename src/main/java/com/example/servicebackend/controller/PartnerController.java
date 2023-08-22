@@ -25,7 +25,7 @@ public class PartnerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPartnerById(@PathVariable String partnerId) {
+    public ResponseEntity<?> getPartnerById(@PathVariable("id") String partnerId) {
         PartnerDto partnerDto = partnerService.getPartnerById(partnerId);
         if (partnerDto != null) {
             return ResponseEntity.ok(partnerDto);
