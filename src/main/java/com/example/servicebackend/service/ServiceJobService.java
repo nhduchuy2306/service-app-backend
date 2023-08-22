@@ -6,5 +6,6 @@ import com.example.servicebackend.model.dto.ServiceJobDto;
 
 public interface ServiceJobService {
     List<ServiceJobDto> getAllServices();
-    void addService(ServiceJobDto serviceJobDto);
+    ServiceJobDto addService(ServiceJobDto serviceJobDto);
+    ServiceJobDto getServiceById(Long id);
 }

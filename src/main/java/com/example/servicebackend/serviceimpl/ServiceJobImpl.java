@@ -10,17 +10,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ServiceJobImpl implements ServiceJobService {
 
-    private final ServiceJobRepository serviceRepository;
+    private final ServiceJobRepository serviceJobRepository;
 
     @Override
     public List<ServiceJobDto> getAllServices() {
         List<ServiceJobDto> serviceJobDtos = new ArrayList<>();
-        List<ServiceJob> services = serviceRepository.findAll();
+        List<ServiceJob> services = serviceJobRepository.findAll();
 
         for (ServiceJob service : services) {
             serviceJobDtos.add(ServiceJobMapper.INSTANCE.toDto(service));
@@ -29,9 +30,17 @@ public class ServiceJobImpl implements ServiceJobService {
     }
 
     @Override
-    public void addService(ServiceJobDto serviceJobDto) {
+    public ServiceJobDto addService(ServiceJobDto serviceJobDto) {
+        serviceJobDto.setServiceId(0L);
         ServiceJob serviceJob = ServiceJobMapper.INSTANCE.toEntity(serviceJobDto);
-        serviceRepository.save(serviceJob);
+        ServiceJob res = serviceJobRepository.save(serviceJob);
+        return ServiceJobMapper.INSTANCE.toDto(res);
+    }
+
+    @Override
+    public ServiceJobDto getServiceById(Long id) {
+        Optional<ServiceJob> serviceJob = serviceJobRepository.findById(id);
+        return serviceJob.map(ServiceJobMapper.INSTANCE::toDto).orElse(null);
     }
 
 }
