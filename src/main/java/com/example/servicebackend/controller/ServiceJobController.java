@@ -20,7 +20,12 @@ public class ServiceJobController {
 
     @PostMapping("/")
     public ResponseEntity<?> addService(@RequestBody ServiceJobDto serviceJobDto) {
-        serviceJobService.addService(serviceJobDto);
-        return ResponseEntity.created(null).build();
+        ServiceJobDto res = serviceJobService.addService(serviceJobDto);
+        return ResponseEntity.created(null).body(res);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getServiceById(@PathVariable Long id) {
+        return ResponseEntity.ok(serviceJobService.getServiceById(id));
     }
 }
