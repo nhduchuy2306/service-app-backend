@@ -1,15 +1,30 @@
 package com.example.servicebackend.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.servicebackend.model.dto.UserDto;
+import com.example.servicebackend.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @GetMapping("")
-    public String getUsers() {
-        return "Hello World!";
+    private final UserService userService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable("id") String userId) {
+        UserDto userDto = userService.getUserById(userId);
+        if (userDto != null) {
+            return ResponseEntity.ok(userDto);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> addUser(@RequestBody UserDto userDto) {
+        UserDto res = userService.addUser(userDto);
+        return ResponseEntity.created(null).body(res);
     }
 }

@@ -33,7 +33,7 @@ public class PartnerController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<?> addPartner(@RequestBody PartnerDto partnerDto) {
         PartnerDto newPartner = partnerService.addPartner(partnerDto);
         if (newPartner != null) {
