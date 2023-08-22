@@ -16,6 +16,5 @@ public class ServiceRequestDto {
     private String type;
     private String status;
     private String userId;
-    private Long serviceId;
-    private Long bookingId;
+    private Long serviceJobId;
 }
