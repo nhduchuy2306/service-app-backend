@@ -1,19 +1,17 @@
 package com.example.servicebackend.model.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
-public class UserDto {
-    private String userId;
-    private String userName;
+public class GoogleUserInfoDto {
+    private String displayName;
     private String email;
-    private String location;
-    private String image;
     private String phoneNumber;
+    private String photoURL;
+    private String providerId;
+    private String uid;
 }

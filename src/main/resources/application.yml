@@ -8,6 +8,7 @@ spring:
   #    url: jdbc:mysql://mysql:3309/happyclean
   #    username: root
   #    password: happyclean
+  # ------------------------------------------------
   #    url: jdbc:mysql://localhost:3309/happyclean
   #    username: root
   #    password: happyclean
@@ -38,3 +39,5 @@ logging:
     org.hibernate.stat: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    org.hibernate.type.descriptor.converter: TRACE
+    org.hibernate.type.descriptor.java.DataHelper: TRACE

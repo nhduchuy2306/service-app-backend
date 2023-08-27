@@ -1,5 +1,6 @@
 package com.example.servicebackend.model.entity;
 
+import com.example.servicebackend.model.enumtype.BookingEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,8 @@ public class Booking implements Serializable {
     private Long bookingId;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private BookingEnum status;
 
     @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
     @JsonBackReference

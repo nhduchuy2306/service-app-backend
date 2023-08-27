@@ -15,7 +15,11 @@ public interface ServiceRequestMapper {
     @Mapping(target = "requestId", source = "serviceRequest.requestId")
     ServiceRequestDto toDto(ServiceRequest serviceRequest);
 
-    @Mapping(target = "serviceJob", source = "serviceJobId", qualifiedByName = "mapServiceJobIdToServiceJob")
+    @Mapping(
+            target = "serviceJob",
+            source = "serviceJobId",
+            qualifiedByName = "mapServiceJobIdToServiceJob"
+    )
     ServiceRequest toEntity(ServiceRequestDto serviceRequestDto);
 
     @Named("mapServiceJobIdToServiceJob")
