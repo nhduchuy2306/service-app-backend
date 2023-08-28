@@ -1,8 +1,8 @@
-spring:
-  config:
-    activate:
-      on-profile: stag
-  datasource:
-    url: jdbc:mysql://mysql:3306/happyclean
-    username: root
-    password: happyclean
+#spring:
+#  config:
+#    activate:
+#      on-profile: stag
+#  datasource:
+#    url: jdbc:mysql://mysql:3306/happyclean
+#    username: root
+#    password: happyclean

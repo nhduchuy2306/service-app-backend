@@ -2,16 +2,9 @@ spring:
   application:
     name: happyclean
   datasource:
-    url: jdbc:mysql://happyclean.mysql.database.azure.com:3306/happyclean
+    url: jdbc:mysql://happyclean.mysql.database.azure.com:3306/happyclean?useSSL=true
     username: happyclean
     password: Service123
-  #    url: jdbc:mysql://mysql:3309/happyclean
-  #    username: root
-  #    password: happyclean
-  # ------------------------------------------------
-  #    url: jdbc:mysql://localhost:3309/happyclean
-  #    username: root
-  #    password: happyclean
   jpa:
     hibernate:
       ddl-auto: update
