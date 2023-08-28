@@ -2,7 +2,7 @@ spring:
   application:
     name: happyclean
   datasource:
-    url: jdbc:mysql://happyclean.mysql.database.azure.com/happyclean
+    url: jdbc:mysql://happyclean.mysql.database.azure.com/happyclean?enabledTLSProtocols=TLSv1.2
     username: happyclean
     password: Service123
   jpa:
