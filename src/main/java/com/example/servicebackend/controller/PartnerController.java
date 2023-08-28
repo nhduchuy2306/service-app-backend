@@ -84,4 +84,14 @@ public class PartnerController {
         List<BookingDto> bookingDtos = bookingService.findAllBookingByPartnerId(partnerId);
         return ResponseEntity.ok(new ResponseDto("Get all bookings successfully", bookingDtos, HttpStatus.OK.value()));
     }
+
+    @PutMapping("/{id}/wallets/money")
+    public ResponseEntity<?> updateMoneyForPartner(@PathVariable("id") String partnerId, @RequestBody WalletDto walletDto) {
+        walletDto.setPartnerId(partnerId);
+        WalletDto res = walletService.updateMoneyForPartner(walletDto);
+        if (res == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update money failed", null, HttpStatus.BAD_REQUEST.value()));
+        }
+        return ResponseEntity.ok(new ResponseDto("Update money successfully", res, HttpStatus.OK.value()));
+    }
 }
