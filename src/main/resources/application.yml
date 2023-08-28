@@ -2,7 +2,7 @@ spring:
   application:
     name: happyclean
   datasource:
-    url: jdbc:mysql://happyclean.mysql.database.azure.com:3306/happyclean?useSSL=true&enabledTLSProtocols=TLSv1.2&serverTimezone=UTC
+    url: jdbc:mysql://happyclean.mysql.database.azure.com/happyclean?useSSL=true&enabledTLSProtocols=TLSv1.2&serverTimezone=UTC
     username: happyclean
     password: Service123
     driver-class-name: com.mysql.cj.jdbc.Driver
