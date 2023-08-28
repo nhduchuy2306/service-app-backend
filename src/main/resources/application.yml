@@ -5,6 +5,7 @@ spring:
     url: jdbc:mysql://happyclean.mysql.database.azure.com:3306/happyclean?useSSL=true
     username: happyclean
     password: Service123
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,6 +17,10 @@ spring:
         format_sql: true
         show_sql: true
         use_sql_comments: true
+  devtools:
+    add-properties: true
+    restart:
+      enabled: true
 
 server:
   port: 8080
