@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
-    @Query("SELECT w FROM Wallet w WHERE w.partner.partnerId = ?1")
+    @Query("SELECT w FROM Wallet w WHERE w.partner.partnerId = :partnerId")
     Wallet findByPartnerId(String partnerId);
+
+    @Query("SELECT w FROM Wallet w WHERE w.user.userId = :userId")
+    Wallet findByUserId(String userId);
 }

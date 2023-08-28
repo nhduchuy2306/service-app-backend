@@ -1,5 +1,6 @@
 package com.example.servicebackend.serviceimpl;
 
+import com.example.servicebackend.model.dto.GoogleUserInfoDto;
 import com.example.servicebackend.model.dto.PartnerDto;
 import com.example.servicebackend.model.entity.Partner;
 import com.example.servicebackend.model.mapper.PartnerMapper;
@@ -25,6 +26,21 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Override
     public PartnerDto addPartner(PartnerDto partnerDto) {
+        Partner partner = PartnerMapper.INSTANCE.toEntity(partnerDto);
+        Partner newPartner = partnerRepository.save(partner);
+        return PartnerMapper.INSTANCE.toDto(newPartner);
+    }
+
+    @Override
+    public PartnerDto addGoogleUserInfor(GoogleUserInfoDto googleUserInfoDto) {
+        PartnerDto partnerDto = new PartnerDto();
+        partnerDto.setPartnerId(googleUserInfoDto.getUid());
+        partnerDto.setPartnerName(googleUserInfoDto.getDisplayName());
+        partnerDto.setEmail(googleUserInfoDto.getEmail());
+        partnerDto.setImage(googleUserInfoDto.getPhotoURL());
+        partnerDto.setPhoneNumber(googleUserInfoDto.getPhoneNumber());
+        partnerDto.setLocation(googleUserInfoDto.getProviderId());
+
         Partner partner = PartnerMapper.INSTANCE.toEntity(partnerDto);
         Partner newPartner = partnerRepository.save(partner);
         return PartnerMapper.INSTANCE.toDto(newPartner);

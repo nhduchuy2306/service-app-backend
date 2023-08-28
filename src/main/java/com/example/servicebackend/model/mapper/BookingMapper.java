@@ -14,25 +14,26 @@ public interface BookingMapper {
 
     BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
 
-    @Mapping(target = "serviceRequest", source = "booking.serviceRequest.serviceRequestId")
-    @Mapping(target = "partner", source = "booking.partner.partnerId")
+    @Mapping(target = "serviceRequestId", source = "booking.serviceRequest.requestId")
+    @Mapping(target = "partnerId", source = "booking.partner.partnerId")
     BookingDto toDto(Booking booking);
 
-    @Mapping(target = "serviceRequest", source = "serviceRequestId", qualifiedByName = "serviceRequestIdToServiceRequest")
-    @Mapping(target = "partner", source = "partnerId", qualifiedByName = "partnerIdToPartner")
+    @Mapping(target = "serviceRequest", source = "serviceRequestId", qualifiedByName = "mapServiceRequestIdToServiceRequest")
+    @Mapping(target = "partner", source = "partnerId", qualifiedByName = "mapPartnerIdToPartner")
     Booking toEntity(BookingDto bookingDto);
 
-    @Named("serviceRequestIdToServiceRequest")
-    default ServiceRequest serviceRequestIdToServiceRequest(Long serviceRequestId) {
+    @Named("mapServiceRequestIdToServiceRequest")
+    default ServiceRequest mapServiceRequestIdToServiceRequest(Long serviceRequestId) {
         ServiceRequest serviceRequest = new ServiceRequest();
         serviceRequest.setRequestId(serviceRequestId);
         return serviceRequest;
     }
 
-    @Named("partnerIdToPartner")
-    default Partner partnerIdToPartner(String partnerId) {
+    @Named("mapPartnerIdToPartner")
+    default Partner mapPartnerIdToPartner(String partnerId) {
         Partner partner = new Partner();
         partner.setPartnerId(partnerId);
         return partner;
     }
+
 }

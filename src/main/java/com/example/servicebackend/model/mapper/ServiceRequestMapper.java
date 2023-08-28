@@ -28,4 +28,5 @@ public interface ServiceRequestMapper {
         serviceJob.setServiceId(serviceJobId);
         return serviceJob;
     }
+
 }

@@ -9,6 +9,9 @@ import com.example.servicebackend.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
@@ -26,19 +29,19 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDto findAllBookingByPartnerId(String partnerId) {
-        Booking booking = bookingRepository.findAllBookingByPartnerId(partnerId, BookingEnum.PENDING);
-        if (booking != null) {
-            return BookingMapper.INSTANCE.toDto(booking);
+    public List<BookingDto> findAllBookingByPartnerId(String partnerId) {
+        List<Booking> bookings = bookingRepository.findAllBookingByPartnerId(partnerId, BookingEnum.PENDING);
+        if (bookings != null) {
+            return bookings.stream().map(BookingMapper.INSTANCE::toDto).collect(Collectors.toList());
         }
         return null;
     }
 
     @Override
-    public BookingDto findAllBookingByUserId(String userId) {
-        Booking booking = bookingRepository.findAllBookingByUserId(userId, BookingEnum.PENDING);
-        if (booking != null) {
-            return BookingMapper.INSTANCE.toDto(booking);
+    public List<BookingDto> findAllBookingByUserId(String userId) {
+        List<Booking> bookings = bookingRepository.findAllBookingByUserId(userId, BookingEnum.PENDING);
+        if (bookings != null) {
+            return bookings.stream().map(BookingMapper.INSTANCE::toDto).collect(Collectors.toList());
         }
         return null;
     }

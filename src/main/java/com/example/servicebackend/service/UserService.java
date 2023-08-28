@@ -5,6 +5,8 @@ import com.example.servicebackend.model.dto.UserDto;
 
 public interface UserService {
     UserDto getUserById(String userId);
+
     UserDto addUser(UserDto userDto);
+
     UserDto addGoogleUserInfor(GoogleUserInfoDto googleUserInfoDto);
 }

@@ -7,7 +7,9 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface ServiceJobMapper {
+
      ServiceJobMapper INSTANCE = Mappers.getMapper(ServiceJobMapper.class);
      ServiceJobDto toDto(ServiceJob serviceJob);
      ServiceJob toEntity(ServiceJobDto serviceJobDto);
+
 }

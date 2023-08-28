@@ -38,4 +38,9 @@ public class Wallet implements Serializable {
     @JoinColumn(name = "partner_id")
     @JsonManagedReference
     private Partner partner;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    @JsonManagedReference
+    private User user;
 }

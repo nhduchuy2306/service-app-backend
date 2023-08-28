@@ -51,4 +51,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Report> reports;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Wallet wallet;
+
 }

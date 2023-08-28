@@ -16,9 +16,11 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public WalletDto addWalletToPartner(WalletDto walletDto) {
-        Wallet wallet = walletRepository.save(WalletMapper.INSTANCE.toEntity(walletDto));
-        if (wallet != null) {
-            return WalletMapper.INSTANCE.toDto(wallet);
+        Wallet wallet = WalletMapper.INSTANCE.toEntity(walletDto);
+        wallet.setUser(null);
+        Wallet newWallet = walletRepository.save(wallet);
+        if (newWallet != null) {
+            return WalletMapper.INSTANCE.toDto(newWallet);
         }
         return null;
     }
@@ -35,6 +37,28 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public WalletDto updateMoneyForPartner(WalletDto walletDto) {
         Wallet wallet = walletRepository.findByPartnerId(walletDto.getPartnerId());
+        if (wallet != null) {
+            wallet.setMoney(walletDto.getMoney());
+            walletRepository.save(wallet);
+            return WalletMapper.INSTANCE.toDto(wallet);
+        }
+        return null;
+    }
+
+    @Override
+    public WalletDto addWalletToUser(WalletDto walletDto) {
+        Wallet wallet = WalletMapper.INSTANCE.toEntity(walletDto);
+        wallet.setPartner(null);
+        Wallet newWallet = walletRepository.save(wallet);
+        if (newWallet != null) {
+            return WalletMapper.INSTANCE.toDto(newWallet);
+        }
+        return null;
+    }
+
+    @Override
+    public WalletDto updateMoneyForUser(WalletDto walletDto) {
+        Wallet wallet = walletRepository.findByUserId(walletDto.getUserId());
         if (wallet != null) {
             wallet.setMoney(walletDto.getMoney());
             walletRepository.save(wallet);

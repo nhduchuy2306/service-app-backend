@@ -12,4 +12,5 @@ public class WalletDto {
     private Double money;
     private String status;
     private String partnerId;
+    private String userId;
 }

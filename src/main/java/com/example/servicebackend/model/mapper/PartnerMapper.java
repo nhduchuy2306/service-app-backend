@@ -7,7 +7,9 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface PartnerMapper {
+
     PartnerMapper INSTANCE = Mappers.getMapper(PartnerMapper.class);
     PartnerDto toDto(Partner partner);
     Partner toEntity(PartnerDto partnerDto);
+
 }
