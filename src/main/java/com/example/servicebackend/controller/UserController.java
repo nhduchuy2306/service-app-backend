@@ -74,22 +74,12 @@ public class UserController {
         return ResponseEntity.ok(new ResponseDto("Get reward point successfully", rewardPointDto, HttpStatus.OK.value()));
     }
 
-    @PutMapping("/{id}/reward-points/add")
+    @PutMapping("/{id}/reward-points")
     public ResponseEntity<?> updateRewardPoint(@PathVariable("id") String userId, @RequestBody Double rewardPointAmount) {
-        RewardPointDto res = rewardPointService.addRewardPoint(userId, rewardPointAmount);
+        RewardPointDto res = rewardPointService.updateRewardPoint(userId, rewardPointAmount);
         if (res == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update reward point failed", null, HttpStatus.BAD_REQUEST.value()));
         }
         return ResponseEntity.ok(new ResponseDto("Update reward point successfully", res, HttpStatus.OK.value()));
     }
-
-    @PutMapping("/{id}/reward-points/deduct")
-    public ResponseEntity<?> subtractRewardPoint(@PathVariable("id") String userId, @RequestBody Double rewardPointAmount) {
-        RewardPointDto res = rewardPointService.deductRewardPoint(userId, rewardPointAmount);
-        if (res == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update reward point failed", null, HttpStatus.BAD_REQUEST.value()));
-        }
-        return ResponseEntity.ok(new ResponseDto("Update reward point successfully", res, HttpStatus.OK.value()));
-    }
-
 }

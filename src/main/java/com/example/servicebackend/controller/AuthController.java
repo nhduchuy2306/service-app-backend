@@ -50,7 +50,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/partner/google-user-info")
+    @PostMapping("/partner/google-partner-info")
     public ResponseEntity<?> addGooglePartnerInfor(@RequestBody GoogleUserInfoDto googleUserInfoDto) {
         PartnerDto partnerDto = partnerService.getPartnerById(googleUserInfoDto.getUid());
         if (partnerDto != null) {

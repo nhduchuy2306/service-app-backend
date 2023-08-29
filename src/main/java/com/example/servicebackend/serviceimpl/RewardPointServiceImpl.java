@@ -15,24 +15,10 @@ public class RewardPointServiceImpl implements RewardPointService {
     private final RewardPointRepository rewardPointRepository;
 
     @Override
-    public RewardPointDto addRewardPoint(String userId, Double rewardPointAmount) {
+    public RewardPointDto updateRewardPoint(String userId, Double rewardPointAmount) {
         RewardPoint rewardPoint = rewardPointRepository.findRewardPointByUserId(userId);
         if (rewardPoint != null) {
             Double total = rewardPoint.getRewardPointAmount() + rewardPointAmount;
-            rewardPoint.setRewardPointAmount(total);
-            RewardPoint updateRewardPoint = rewardPointRepository.save(rewardPoint);
-            if (updateRewardPoint != null) {
-                return RewardPointMapper.INSTANCE.toDto(updateRewardPoint);
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public RewardPointDto deductRewardPoint(String userId, Double rewardPointAmount) {
-        RewardPoint rewardPoint = rewardPointRepository.findRewardPointByUserId(userId);
-        if (rewardPoint != null) {
-            Double total = rewardPoint.getRewardPointAmount() - rewardPointAmount;
             rewardPoint.setRewardPointAmount(total);
             RewardPoint updateRewardPoint = rewardPointRepository.save(rewardPoint);
             if (updateRewardPoint != null) {
