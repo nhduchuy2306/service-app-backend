@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class RewardPointDto {
     private Long rewardPointId;
-    private String rewardPointAmount;
+    private Double rewardPointAmount;
     private String userId;
 }

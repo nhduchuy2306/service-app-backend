@@ -19,6 +19,7 @@ public class UserController {
     private final BookingService bookingService;
     private final ReportService reportService;
     private final WalletService walletService;
+    private final RewardPointService rewardPointService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable("id") String userId) {
@@ -27,36 +28,6 @@ public class UserController {
             return ResponseEntity.ok(new ResponseDto("Get user successfully", userDto, HttpStatus.OK.value()));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("User not found", null, HttpStatus.NOT_FOUND.value()));
-    }
-
-    @PostMapping("")
-    public ResponseEntity<?> addUser(@RequestBody UserDto userDto) {
-        UserDto res = userService.addUser(userDto);
-        return ResponseEntity.created(null).body(new ResponseDto("Add user successfully", res, HttpStatus.CREATED.value()));
-    }
-
-    @PostMapping("/auth/google")
-    public ResponseEntity<?> addGoogleUserInfor(@RequestBody GoogleUserInfoDto googleUserInfoDto) {
-        UserDto userDto = userService.getUserById(googleUserInfoDto.getUid());
-        if (userDto != null) {
-            // User already exists
-            return ResponseEntity.ok(new ResponseDto("User already exists", userDto, HttpStatus.OK.value()));
-        } else {
-            // User not exists
-            UserDto res = userService.addGoogleUserInfor(googleUserInfoDto);
-            if(res == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Add user failed", null, HttpStatus.BAD_REQUEST.value()));
-            }
-            // Create wallet
-            WalletDto walletDto = new WalletDto();
-            walletDto.setUserId(res.getUserId());
-            walletDto.setMoney(0.0);
-            walletDto.setStatus("ACTIVE");
-            walletDto.setPartnerId(null);
-            walletService.addWalletToUser(walletDto);
-
-            return ResponseEntity.created(null).body(new ResponseDto("Add user successfully", res, HttpStatus.CREATED.value()));
-        }
     }
 
     @GetMapping("/{id}/notifications")
@@ -88,10 +59,37 @@ public class UserController {
     public ResponseEntity<?> updateMoneyForUser(@PathVariable("id") String userId, @RequestBody WalletDto walletDto) {
         walletDto.setUserId(userId);
         WalletDto res = walletService.updateMoneyForUser(walletDto);
-        if(res == null) {
+        if (res == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update money failed", null, HttpStatus.BAD_REQUEST.value()));
         }
         return ResponseEntity.ok(new ResponseDto("Update money successfully", res, HttpStatus.OK.value()));
+    }
+
+    @GetMapping("/{id}/reward-points")
+    public ResponseEntity<?> getRewardPoint(@PathVariable("id") String userId) {
+        RewardPointDto rewardPointDto = rewardPointService.getRewardPoint(userId);
+        if (rewardPointDto == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Reward point not found", null, HttpStatus.NOT_FOUND.value()));
+        }
+        return ResponseEntity.ok(new ResponseDto("Get reward point successfully", rewardPointDto, HttpStatus.OK.value()));
+    }
+
+    @PutMapping("/{id}/reward-points/add")
+    public ResponseEntity<?> updateRewardPoint(@PathVariable("id") String userId, @RequestBody Double rewardPointAmount) {
+        RewardPointDto res = rewardPointService.addRewardPoint(userId, rewardPointAmount);
+        if (res == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update reward point failed", null, HttpStatus.BAD_REQUEST.value()));
+        }
+        return ResponseEntity.ok(new ResponseDto("Update reward point successfully", res, HttpStatus.OK.value()));
+    }
+
+    @PutMapping("/{id}/reward-points/deduct")
+    public ResponseEntity<?> subtractRewardPoint(@PathVariable("id") String userId, @RequestBody Double rewardPointAmount) {
+        RewardPointDto res = rewardPointService.deductRewardPoint(userId, rewardPointAmount);
+        if (res == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update reward point failed", null, HttpStatus.BAD_REQUEST.value()));
+        }
+        return ResponseEntity.ok(new ResponseDto("Update reward point successfully", res, HttpStatus.OK.value()));
     }
 
 }

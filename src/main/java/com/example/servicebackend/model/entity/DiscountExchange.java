@@ -1,5 +1,6 @@
 package com.example.servicebackend.model.entity;
 
+import com.example.servicebackend.model.enumtype.DiscountExchangeEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,10 @@ public class DiscountExchange implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private DiscountExchangeEnum status;
 
     @OneToMany(mappedBy = "discountExchange", fetch = FetchType.LAZY)
     @JsonBackReference

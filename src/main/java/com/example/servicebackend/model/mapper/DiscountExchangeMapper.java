@@ -7,6 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface DiscountExchangeMapper {
+
     DiscountExchangeMapper INSTANCE = Mappers.getMapper(DiscountExchangeMapper.class);
 
     DiscountExchange toEntity(DiscountExchangeDto discountExchangeDto);

@@ -24,7 +24,7 @@ public class RewardPoint implements Serializable {
     private Long rewardPointId;
 
     @Column(name = "reward_point_amount")
-    private String rewardPointAmount;
+    private Double rewardPointAmount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
