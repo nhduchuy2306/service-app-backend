@@ -1,17 +1,13 @@
 package com.example.servicebackend.controller;
 
 import com.example.servicebackend.model.dto.*;
-import com.example.servicebackend.service.PartnerService;
-import com.example.servicebackend.service.RewardPointService;
-import com.example.servicebackend.service.UserService;
-import com.example.servicebackend.service.WalletService;
+import com.example.servicebackend.model.enumtype.PaymentMethodEnum;
+import com.example.servicebackend.model.enumtype.PaymentMethodTypeEnum;
+import com.example.servicebackend.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -22,6 +18,7 @@ public class AuthController {
     private final PartnerService partnerService;
     private final WalletService walletService;
     private final RewardPointService rewardPointService;
+    private final PaymentMethodService paymentMethodService;
 
     @PostMapping("/user/google-user-info")
     public ResponseEntity<?> addGoogleUserInfor(@RequestBody GoogleUserInfoDto googleUserInfoDto) {
@@ -45,6 +42,14 @@ public class AuthController {
 
             // Create reward point
             rewardPointService.initRewardPoint(res.getUserId());
+
+            // create payment method
+            PaymentMethodDto paymentMethodDto = new PaymentMethodDto();
+            paymentMethodDto.setUserId(res.getUserId());
+            paymentMethodDto.setPaymentMethodType(PaymentMethodTypeEnum.PERSONAL_WALLET.getPaymentMethodType());
+            paymentMethodDto.setStatus(PaymentMethodEnum.ACTIVE);
+            paymentMethodDto.setPaymentMethodName("Personal Wallet");
+            paymentMethodService.addPaymentMethod(paymentMethodDto);
 
             return ResponseEntity.created(null).body(new ResponseDto("Add user successfully", res, HttpStatus.CREATED.value()));
         }

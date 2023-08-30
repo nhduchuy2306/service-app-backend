@@ -10,4 +10,6 @@ public interface ServiceJobService {
     ServiceJobDto addService(ServiceJobDto serviceJobDto);
 
     ServiceJobDto getServiceById(Long id);
+
+    ServiceJobDto updateService(Long id, ServiceJobDto serviceJobDto);
 }

@@ -37,4 +37,13 @@ public class ServiceJobController {
         }
         return ResponseEntity.ok(new ResponseDto("Get service successfully", serviceJobDto, HttpStatus.OK.value()));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateService(@PathVariable("id") Long id, @RequestBody ServiceJobDto serviceJobDto) {
+        ServiceJobDto res = serviceJobService.updateService(id, serviceJobDto);
+        if (res == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Service not found", null, HttpStatus.NOT_FOUND.value()));
+        }
+        return ResponseEntity.ok(new ResponseDto("Update service successfully", res, HttpStatus.OK.value()));
+    }
 }

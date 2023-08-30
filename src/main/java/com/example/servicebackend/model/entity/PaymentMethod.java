@@ -1,5 +1,6 @@
 package com.example.servicebackend.model.entity;
 
+import com.example.servicebackend.model.enumtype.PaymentMethodEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -35,8 +36,11 @@ public class PaymentMethod implements Serializable {
     @JsonManagedReference
     private User user;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private PaymentMethodEnum status;
+
     @OneToMany(mappedBy = "paymentMethod", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<PaymentTransaction> paymentTransactions;
-
 }

@@ -43,4 +43,31 @@ public class ServiceJobImpl implements ServiceJobService {
         return serviceJob.map(ServiceJobMapper.INSTANCE::toDto).orElse(null);
     }
 
+    @Override
+    public ServiceJobDto updateService(Long id, ServiceJobDto serviceJobDto) {
+        Optional<ServiceJob> serviceJob = serviceJobRepository.findById(id);
+        if (serviceJob.isPresent()) {
+            ServiceJob service = serviceJob.get();
+            service.setServiceName(
+                    serviceJobDto.getServiceName() == null || serviceJobDto.getServiceName() == "" ?
+                            service.getServiceName() :
+                            serviceJobDto.getServiceName()
+            );
+            service.setPrice(
+                    serviceJobDto.getPrice() == null || serviceJobDto.getPrice() == 0 ?
+                            service.getPrice() :
+                            serviceJobDto.getPrice()
+            );
+            service.setDescription(
+                    serviceJobDto.getDescription() == null || serviceJobDto.getDescription() == "" ?
+                            service.getDescription() :
+                            serviceJobDto.getDescription()
+            );
+
+            ServiceJob res = serviceJobRepository.save(service);
+            return ServiceJobMapper.INSTANCE.toDto(res);
+        }
+        return null;
+    }
+
 }
