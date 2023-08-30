@@ -1,5 +1,7 @@
 package com.example.servicebackend.model.entity;
 
+import com.example.servicebackend.model.enumtype.UserDiscountEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,12 +34,16 @@ public class UserDiscount implements Serializable {
     @JsonManagedReference
     private DiscountExchange discountExchange;
 
-    @OneToOne(mappedBy = "userDiscount", fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private PaymentTransaction paymentTransaction;
-
     @ManyToOne
-    @JoinColumn(name = "reward_point_id", insertable = false, updatable = false)
+    @JoinColumn(name = "reward_point_id")
     @JsonManagedReference
     private RewardPoint rewardPoint;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private UserDiscountEnum status;
+
+    @OneToMany(mappedBy = "userDiscount", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<UserDiscountAssociation> userDiscountAssociations;
 }

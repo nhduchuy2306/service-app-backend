@@ -45,9 +45,9 @@ public class DiscountExchangeServiceImpl implements DiscountExchangeService {
         DiscountExchange discountExchange = discountExchangeRepository.findById(discountExchangeId).orElse(null);
         if(discountExchange != null) {
             discountExchange.setStatus(DiscountExchangeEnum.INACTIVE);
-            DiscountExchange newDiscountExchange = discountExchangeRepository.save(discountExchange);
-            if(newDiscountExchange != null) {
-                return DiscountExchangeMapper.INSTANCE.toDto(newDiscountExchange);
+            DiscountExchange updateDiscountExchange = discountExchangeRepository.save(discountExchange);
+            if(updateDiscountExchange != null) {
+                return DiscountExchangeMapper.INSTANCE.toDto(updateDiscountExchange);
             }
         }
         return null;

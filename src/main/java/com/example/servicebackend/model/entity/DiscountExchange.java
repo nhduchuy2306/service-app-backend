@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -30,6 +31,12 @@ public class DiscountExchange implements Serializable {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private DiscountExchangeEnum status;
+
+    @Column(name = "start_date")
+    private Date startDate;
+
+    @Column(name = "end_date")
+    private Date endDate;
 
     @OneToMany(mappedBy = "discountExchange", fetch = FetchType.LAZY)
     @JsonBackReference

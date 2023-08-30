@@ -58,4 +58,8 @@ public class ServiceRequest implements Serializable {
     @OneToOne(mappedBy = "serviceRequest", fetch = FetchType.LAZY)
     @JsonBackReference
     private Booking booking;
+
+    @OneToMany(mappedBy = "serviceRequest", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<UserDiscountAssociation> userDiscountAssociations;
 }

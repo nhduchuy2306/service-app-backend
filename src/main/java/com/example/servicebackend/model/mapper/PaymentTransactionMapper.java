@@ -16,12 +16,10 @@ public interface PaymentTransactionMapper {
     PaymentTransactionMapper INSTANCE = Mappers.getMapper(PaymentTransactionMapper.class);
 
     @Mapping(target = "paymentMethodId", source = "paymentMethod.paymentMethodId")
-    @Mapping(target = "userDiscountId", source = "userDiscount.userDiscountId")
     @Mapping(target = "bookingId", source = "booking.bookingId")
     PaymentTransactionDto toDto(PaymentTransaction paymentTransaction);
 
     @Mapping(target = "paymentMethod", source = "paymentMethodId", qualifiedByName = "mapPaymentMethodIdToPaymentMethod")
-    @Mapping(target = "userDiscount", source = "userDiscountId", qualifiedByName = "mapUserDiscountIdToUserDiscount")
     @Mapping(target = "booking", source = "bookingId", qualifiedByName = "mapBookingIdToBooking")
     PaymentTransaction toEntity(PaymentTransactionDto paymentTransactionDto);
 
@@ -30,13 +28,6 @@ public interface PaymentTransactionMapper {
         PaymentMethod paymentMethod = new PaymentMethod();
         paymentMethod.setPaymentMethodId(paymentMethodId);
         return paymentMethod;
-    }
-
-    @Named("mapUserDiscountIdToUserDiscount")
-    default UserDiscount mapUserDiscountIdToUserDiscount(Long userDiscountId) {
-        UserDiscount userDiscount = new UserDiscount();
-        userDiscount.setUserDiscountId(userDiscountId);
-        return userDiscount;
     }
 
     @Named("mapBookingIdToBooking")
