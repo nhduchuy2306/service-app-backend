@@ -3,6 +3,9 @@ package com.example.servicebackend.controller;
 import com.example.servicebackend.model.dto.DiscountExchangeDto;
 import com.example.servicebackend.model.dto.ResponseDto;
 import com.example.servicebackend.service.DiscountExchangeService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/discountExchange")
 @RequiredArgsConstructor
+@Tag(name = "Discount Exchange API")
+@SecurityRequirement(name = "Authorization")
 public class DiscountExchangeController {
 
     private final DiscountExchangeService discountExchangeService;

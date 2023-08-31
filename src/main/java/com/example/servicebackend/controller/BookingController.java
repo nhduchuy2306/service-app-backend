@@ -3,6 +3,9 @@ package com.example.servicebackend.controller;
 import com.example.servicebackend.model.dto.BookingDto;
 import com.example.servicebackend.model.dto.ResponseDto;
 import com.example.servicebackend.service.BookingService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/bookings")
 @RequiredArgsConstructor
+@Tag(name = "Booking API")
+@SecurityRequirement(name = "Authorization")
 public class BookingController {
 
     private final BookingService bookingService;
@@ -21,6 +26,7 @@ public class BookingController {
     @PostMapping("")
     public ResponseEntity<?> addBooking(@RequestBody BookingDto bookingDto) {
         BookingDto newBooking = bookingService.addBooking(bookingDto);
-        return ResponseEntity.created(null).body(new ResponseDto("Create Booking Successfully", newBooking, HttpStatus.CREATED.value()));
+        return ResponseEntity.created(null)
+                .body(new ResponseDto("Create Booking Successfully", newBooking, HttpStatus.CREATED.value()));
     }
 }

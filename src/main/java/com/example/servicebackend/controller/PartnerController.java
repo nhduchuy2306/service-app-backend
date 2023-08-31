@@ -5,6 +5,9 @@ import com.example.servicebackend.service.BookingService;
 import com.example.servicebackend.service.NotificationService;
 import com.example.servicebackend.service.PartnerService;
 import com.example.servicebackend.service.WalletService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/partners")
 @RequiredArgsConstructor
+@Tag(name = "Partner API")
+@SecurityRequirement(name = "Authorization")
 public class PartnerController {
 
     private final PartnerService partnerService;

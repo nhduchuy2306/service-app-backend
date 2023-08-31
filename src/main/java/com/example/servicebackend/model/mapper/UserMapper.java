@@ -10,12 +10,12 @@ import org.mapstruct.factory.Mappers;
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    UserDto toUserDto(User user);
+    UserDto toDto(User user);
 
     @Mapping(target = "paymentMethods", ignore = true)
     @Mapping(target = "reports", ignore = true)
     @Mapping(target = "rewardPoints", ignore = true)
     @Mapping(target = "serviceRequests", ignore = true)
     @Mapping(target = "wallet", ignore = true)
-    User toUser(UserDto userDto);
+    User toEntity(UserDto userDto);
 }

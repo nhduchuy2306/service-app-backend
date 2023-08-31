@@ -2,6 +2,9 @@ package com.example.servicebackend.controller;
 
 import com.example.servicebackend.model.dto.*;
 import com.example.servicebackend.service.*;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@Tag(name = "User API")
+@SecurityRequirement(name = "Authorization")
 public class UserController {
 
     private final UserService userService;

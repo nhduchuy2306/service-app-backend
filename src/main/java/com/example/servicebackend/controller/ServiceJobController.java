@@ -3,6 +3,9 @@ package com.example.servicebackend.controller;
 import com.example.servicebackend.model.dto.ResponseDto;
 import com.example.servicebackend.model.dto.ServiceJobDto;
 import com.example.servicebackend.service.ServiceJobService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/services")
 @RequiredArgsConstructor
+@Tag(name = "Service Job API")
+@SecurityRequirement(name = "Authorization")
 public class ServiceJobController {
 
     private final ServiceJobService serviceJobService;

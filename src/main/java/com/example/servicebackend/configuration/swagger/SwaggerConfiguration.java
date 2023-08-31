@@ -2,33 +2,26 @@ package com.example.servicebackend.configuration.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 
 @Configuration
-@EnableSwagger2
+@SecurityScheme(name = "Authorization", type = SecuritySchemeType.HTTP, scheme = "Bearer", in = SecuritySchemeIn.HEADER)
 public class SwaggerConfiguration {
+
     @Bean
-    public Docket apiConfig(){
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("api")
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.servicebackend.controller"))
-                .paths(PathSelectors.any())
-                .build();
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .info(apiInfo());
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Happy Clean API")
-                .description("Happy Clean API for developer")
-                .termsOfServiceUrl("")
-                .license("").version("1.0").build();
+    private Info apiInfo() {
+        return new Info().title("Service Backend")
+                .description("Service Backend for the Service Frontend")
+                .version("1.0.0");
     }
 }

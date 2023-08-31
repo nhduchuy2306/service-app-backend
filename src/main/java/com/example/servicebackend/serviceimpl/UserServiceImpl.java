@@ -19,16 +19,16 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserById(String userId) {
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
-            return UserMapper.INSTANCE.toUserDto(user);
+            return UserMapper.INSTANCE.toDto(user);
         }
         return null;
     }
 
     @Override
     public UserDto addUser(UserDto userDto) {
-        User user = UserMapper.INSTANCE.toUser(userDto);
+        User user = UserMapper.INSTANCE.toEntity(userDto);
         User newUser = userRepository.save(user);
-        return UserMapper.INSTANCE.toUserDto(newUser);
+        return UserMapper.INSTANCE.toDto(newUser);
     }
 
     @Override
@@ -41,9 +41,9 @@ public class UserServiceImpl implements UserService {
         userDto.setPhoneNumber(googleUserInfoDto.getPhoneNumber());
         userDto.setLocation(googleUserInfoDto.getProviderId());
         
-        User user = UserMapper.INSTANCE.toUser(userDto);
+        User user = UserMapper.INSTANCE.toEntity(userDto);
 
         User newUser = userRepository.save(user);
-        return UserMapper.INSTANCE.toUserDto(newUser);
+        return UserMapper.INSTANCE.toDto(newUser);
     }
 }

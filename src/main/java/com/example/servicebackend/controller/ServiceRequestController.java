@@ -6,6 +6,9 @@ import com.example.servicebackend.model.dto.UserDiscountAssociationDto;
 import com.example.servicebackend.model.dto.UserDiscountDto;
 import com.example.servicebackend.service.ServiceRequestService;
 import com.example.servicebackend.service.UserDiscountService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/service-requests")
 @RequiredArgsConstructor
+@Tag(name = "Service Request API")
+@SecurityRequirement(name = "Authorization")
 public class ServiceRequestController {
 
     private final ServiceRequestService serviceRequestService;
