@@ -17,6 +17,7 @@ public interface RewardPointMapper {
     RewardPointDto toDto(RewardPoint rewardPoint);
 
     @Mapping(target = "user", source = "userId", qualifiedByName = "userIdToUser")
+    @Mapping(target = "userDiscounts", ignore = true)
     RewardPoint toEntity(RewardPointDto rewardPointDto);
 
     @Named("userIdToUser")

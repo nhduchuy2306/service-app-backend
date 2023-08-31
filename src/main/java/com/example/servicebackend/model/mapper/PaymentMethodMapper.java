@@ -17,6 +17,7 @@ public interface PaymentMethodMapper {
     PaymentMethodDto toDto(PaymentMethod paymentMethod);
 
     @Mapping(target = "user", source = "userId", qualifiedByName = "mapUserIdToUser")
+    @Mapping(target = "paymentTransactions", ignore = true)
     PaymentMethod toEntity(PaymentMethodDto paymentMethodDto);
 
     @Named("mapUserIdToUser")

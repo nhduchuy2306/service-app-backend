@@ -20,6 +20,9 @@ public interface BookingMapper {
 
     @Mapping(target = "serviceRequest", source = "serviceRequestId", qualifiedByName = "mapServiceRequestIdToServiceRequest")
     @Mapping(target = "partner", source = "partnerId", qualifiedByName = "mapPartnerIdToPartner")
+    @Mapping(target = "paymentTransaction", ignore = true)
+    @Mapping(target = "reports", ignore = true)
+    @Mapping(target = "notifications", ignore = true)
     Booking toEntity(BookingDto bookingDto);
 
     @Named("mapServiceRequestIdToServiceRequest")

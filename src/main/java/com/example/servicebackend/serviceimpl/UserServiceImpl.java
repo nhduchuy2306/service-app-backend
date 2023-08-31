@@ -33,14 +33,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto addGoogleUserInfor(GoogleUserInfoDto googleUserInfoDto) {
-        UserDto userDto = new UserDto().builder()
-                .userId(googleUserInfoDto.getUid())
-                .userName(googleUserInfoDto.getDisplayName())
-                .email(googleUserInfoDto.getEmail())
-                .image(googleUserInfoDto.getPhotoURL())
-                .phoneNumber(googleUserInfoDto.getPhoneNumber())
-                .location(googleUserInfoDto.getProviderId())
-                .build();
+        UserDto userDto = new UserDto();
+        userDto.setUserId(googleUserInfoDto.getUid());
+        userDto.setUserName(googleUserInfoDto.getDisplayName());
+        userDto.setEmail(googleUserInfoDto.getEmail());
+        userDto.setImage(googleUserInfoDto.getPhotoURL());
+        userDto.setPhoneNumber(googleUserInfoDto.getPhoneNumber());
+        userDto.setLocation(googleUserInfoDto.getProviderId());
+        
         User user = UserMapper.INSTANCE.toUser(userDto);
 
         User newUser = userRepository.save(user);

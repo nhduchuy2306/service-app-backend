@@ -14,13 +14,11 @@ import com.example.servicebackend.model.compositekey.PartnerWorkingTypeId;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Builder
 @Table(name = "partner_working_type")
 @AllArgsConstructor
 @NoArgsConstructor

@@ -19,6 +19,7 @@ public interface UserDiscountMapper {
 
     @Mapping(target = "discountExchange", source = "discountExchangeId", qualifiedByName = "discountExchangeIdToDiscountExchange")
     @Mapping(target = "rewardPoint", source = "rewardPointId", qualifiedByName = "rewardPointIdToRewardPoint")
+    @Mapping(target = "userDiscountAssociations", ignore = true)
     UserDiscount toEntity(UserDiscountDto userDiscountDto);
 
     @Named("discountExchangeIdToDiscountExchange")

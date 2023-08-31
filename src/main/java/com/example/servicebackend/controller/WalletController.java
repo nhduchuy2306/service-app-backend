@@ -4,7 +4,6 @@ import com.example.servicebackend.model.dto.ResponseDto;
 import com.example.servicebackend.model.dto.WalletDto;
 import com.example.servicebackend.service.WalletService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

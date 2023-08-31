@@ -4,7 +4,6 @@ import com.example.servicebackend.model.dto.PaymentTransactionDto;
 import com.example.servicebackend.model.entity.Booking;
 import com.example.servicebackend.model.entity.PaymentMethod;
 import com.example.servicebackend.model.entity.PaymentTransaction;
-import com.example.servicebackend.model.entity.UserDiscount;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -21,6 +20,7 @@ public interface PaymentTransactionMapper {
 
     @Mapping(target = "paymentMethod", source = "paymentMethodId", qualifiedByName = "mapPaymentMethodIdToPaymentMethod")
     @Mapping(target = "booking", source = "bookingId", qualifiedByName = "mapBookingIdToBooking")
+    @Mapping(target = "notifications", ignore = true)
     PaymentTransaction toEntity(PaymentTransactionDto paymentTransactionDto);
 
     @Named("mapPaymentMethodIdToPaymentMethod")

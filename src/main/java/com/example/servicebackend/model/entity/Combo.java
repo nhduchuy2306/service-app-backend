@@ -3,7 +3,6 @@ package com.example.servicebackend.model.entity;
 import com.example.servicebackend.model.enumtype.ComboEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Builder
 @Table(name = "combo")
 public class Combo implements Serializable {
     @Id

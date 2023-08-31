@@ -2,7 +2,6 @@ package com.example.servicebackend.controller;
 
 import com.example.servicebackend.model.dto.DiscountExchangeDto;
 import com.example.servicebackend.model.dto.ResponseDto;
-import com.example.servicebackend.model.entity.DiscountExchange;
 import com.example.servicebackend.service.DiscountExchangeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
