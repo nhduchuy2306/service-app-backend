@@ -22,28 +22,37 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public AuthenticationResponseDto loginGoogle(GoogleUserInfoDto googleUserInfoDto) {
+    public AuthenticationResponseDto loginGoogleForUser(GoogleUserInfoDto googleUserInfoDto) {
         String uid = googleUserInfoDto.getUid();
 
         User user = userRepository.findById(uid).orElse(null);
         Partner partner = partnerRepository.findById(uid).orElse(null);
-        CustomUserDetails customUserDetails = null;
-        String accessToken = "";
-        String refreshToken = "";
 
-        if(user != null) {
-            customUserDetails = new CustomUserDetails(user, null, null, "ROLE_USER");
-            accessToken = jwtTokenProvider.generateAccessToken(customUserDetails);
-            refreshToken = jwtTokenProvider.generateRefreshToken(customUserDetails);
-        }
-        else{
-            customUserDetails = new CustomUserDetails(null, partner, null, "ROLE_PARTNER");
-            accessToken = jwtTokenProvider.generateAccessToken(customUserDetails);
-            refreshToken = jwtTokenProvider.generateRefreshToken(customUserDetails);
-        }
+        if (partner != null)
+            return null;
+
+        CustomUserDetails customUserDetails = new CustomUserDetails(user, null, null, "ROLE_USER");
+        String accessToken = jwtTokenProvider.generateAccessToken(customUserDetails);
+        String refreshToken = jwtTokenProvider.generateRefreshToken(customUserDetails);
 
         return new AuthenticationResponseDto(accessToken, refreshToken);
-
     }
-    
+
+    @Override
+    public AuthenticationResponseDto loginGoogleForPartner(GoogleUserInfoDto googleUserInfoDto) {
+        String uid = googleUserInfoDto.getUid();
+
+        User user = userRepository.findById(uid).orElse(null);
+        Partner partner = partnerRepository.findById(uid).orElse(null);
+
+        if (user != null)
+            return null;
+
+        CustomUserDetails customUserDetails = new CustomUserDetails(null, partner, null, "ROLE_PARTNER");
+        String accessToken = jwtTokenProvider.generateAccessToken(customUserDetails);
+        String refreshToken = jwtTokenProvider.generateRefreshToken(customUserDetails);
+
+        return new AuthenticationResponseDto(accessToken, refreshToken);
+    }
+
 }

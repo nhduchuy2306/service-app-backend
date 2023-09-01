@@ -4,5 +4,6 @@ import com.example.servicebackend.model.dto.AuthenticationResponseDto;
 import com.example.servicebackend.model.dto.GoogleUserInfoDto;
 
 public interface AuthenticationService {
-    AuthenticationResponseDto loginGoogle(GoogleUserInfoDto googleUserInfoDto);
+    AuthenticationResponseDto loginGoogleForUser(GoogleUserInfoDto googleUserInfoDto);
+    AuthenticationResponseDto loginGoogleForPartner(GoogleUserInfoDto googleUserInfoDto);
 }

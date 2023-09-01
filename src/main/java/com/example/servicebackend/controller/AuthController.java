@@ -17,73 +17,104 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserService userService;
-    private final PartnerService partnerService;
-    private final WalletService walletService;
-    private final RewardPointService rewardPointService;
-    private final PaymentMethodService paymentMethodService;
-    private final AuthenticationService authenticationService;
+	private final UserService userService;
+	private final PartnerService partnerService;
+	private final WalletService walletService;
+	private final RewardPointService rewardPointService;
+	private final PaymentMethodService paymentMethodService;
+	private final AuthenticationService authenticationService;
 
-    @PostMapping("/user/google-user-info")
-    public ResponseEntity<?> addGoogleUserInfor(@RequestBody GoogleUserInfoDto googleUserInfoDto) {
-        UserDto userDto = userService.getUserById(googleUserInfoDto.getUid());
-        if (userDto != null) {
-            // User already exists
-            AuthenticationResponseDto authenticationResponseDto = authenticationService.loginGoogle(googleUserInfoDto);
-            return ResponseEntity.ok(new ResponseDto("User already exists", authenticationResponseDto, HttpStatus.OK.value()));
-        } else {
-            // User not exists
-            UserDto res = userService.addGoogleUserInfor(googleUserInfoDto);
-            if (res == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Add user failed", null, HttpStatus.BAD_REQUEST.value()));
-            }
-            // Create wallet
-            WalletDto walletDto = new WalletDto();
-            walletDto.setUserId(res.getUserId());
-            walletDto.setMoney(0.0);
-            walletDto.setStatus("ACTIVE");
-            walletDto.setPartnerId(null);
-            walletService.addWalletToUser(walletDto);
+	@PostMapping("/user/google-user-info")
+	public ResponseEntity<?> addGoogleUserInfor(@RequestBody GoogleUserInfoDto googleUserInfoDto) {
+		UserDto userDto = userService.getUserById(googleUserInfoDto.getUid());
+		PartnerDto partnerDto = partnerService.getPartnerById(googleUserInfoDto.getUid());
+		if (partnerDto != null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new ResponseDto("This email is used", null,
+							HttpStatus.BAD_REQUEST.value()));
+		}
+		if (userDto != null) {
+			// User already exists
+			AuthenticationResponseDto authenticationResponseDto = authenticationService
+					.loginGoogleForUser(googleUserInfoDto);
+			return ResponseEntity
+					.ok(new ResponseDto("User already exists", authenticationResponseDto,
+							HttpStatus.OK.value()));
+		} else {
+			// User not exists
+			UserDto res = userService.addGoogleUserInfor(googleUserInfoDto);
+			if (res == null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+						.body(new ResponseDto("Add user failed", null,
+								HttpStatus.BAD_REQUEST.value()));
+			}
+			// Create wallet
+			WalletDto walletDto = new WalletDto();
+			walletDto.setUserId(res.getUserId());
+			walletDto.setMoney(0.0);
+			walletDto.setStatus("ACTIVE");
+			walletDto.setPartnerId(null);
+			walletService.addWalletToUser(walletDto);
 
-            // Create reward point
-            rewardPointService.initRewardPoint(res.getUserId());
+			// Create reward point
+			rewardPointService.initRewardPoint(res.getUserId());
 
-            // create payment method
-            PaymentMethodDto paymentMethodDto = new PaymentMethodDto();
-            paymentMethodDto.setUserId(res.getUserId());
-            paymentMethodDto.setPaymentMethodType(PaymentMethodTypeEnum.PERSONAL_WALLET.getPaymentMethodType());
-            paymentMethodDto.setStatus(PaymentMethodEnum.ACTIVE);
-            paymentMethodDto.setPaymentMethodName("Personal Wallet");
-            paymentMethodService.addPaymentMethod(paymentMethodDto);
+			// create payment method
+			PaymentMethodDto paymentMethodDto = new PaymentMethodDto();
+			paymentMethodDto.setUserId(res.getUserId());
+			paymentMethodDto.setPaymentMethodType(
+					PaymentMethodTypeEnum.PERSONAL_WALLET.getPaymentMethodType());
+			paymentMethodDto.setStatus(PaymentMethodEnum.ACTIVE);
+			paymentMethodDto.setPaymentMethodName("Personal Wallet");
+			paymentMethodService.addPaymentMethod(paymentMethodDto);
 
-            AuthenticationResponseDto authenticationResponseDto = authenticationService.loginGoogle(googleUserInfoDto);
-            return ResponseEntity.created(null).body(new ResponseDto("Add user successfully", authenticationResponseDto, HttpStatus.CREATED.value()));
-        }
-    }
+			AuthenticationResponseDto authenticationResponseDto = authenticationService
+					.loginGoogleForUser(googleUserInfoDto);
+			return ResponseEntity.created(null).body(
+					new ResponseDto("Add user successfully", authenticationResponseDto,
+							HttpStatus.CREATED.value()));
+		}
+	}
 
-    @PostMapping("/partner/google-partner-info")
-    public ResponseEntity<?> addGooglePartnerInfor(@RequestBody GoogleUserInfoDto googleUserInfoDto) {
-        PartnerDto partnerDto = partnerService.getPartnerById(googleUserInfoDto.getUid());
-        if (partnerDto != null) {
-            // Partner already exists
-            AuthenticationResponseDto authenticationResponseDto = authenticationService.loginGoogle(googleUserInfoDto);
-            return ResponseEntity.ok(new ResponseDto("Partner already exists", authenticationResponseDto, HttpStatus.OK.value()));
-        } else {
-            // User not exists
-            PartnerDto res = partnerService.addGoogleUserInfor(googleUserInfoDto);
-            if (res == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Add partner failed", null, HttpStatus.BAD_REQUEST.value()));
-            }
-            // Create wallet
-            WalletDto walletDto = new WalletDto();
-            walletDto.setUserId(res.getPartnerId());
-            walletDto.setMoney(0.0);
-            walletDto.setStatus("ACTIVE");
-            walletDto.setUserId(null);
-            walletService.addWalletToUser(walletDto);
+	@PostMapping("/partner/google-partner-info")
+	public ResponseEntity<?> addGooglePartnerInfor(@RequestBody GoogleUserInfoDto googleUserInfoDto) {
+		UserDto userDto = userService.getUserById(googleUserInfoDto.getUid());
+		PartnerDto partnerDto = partnerService.getPartnerById(googleUserInfoDto.getUid());
 
-            AuthenticationResponseDto authenticationResponseDto = authenticationService.loginGoogle(googleUserInfoDto);
-            return ResponseEntity.ok(new ResponseDto("Partner already exists", authenticationResponseDto, HttpStatus.OK.value()));
-        }
-    }
+		if (userDto != null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new ResponseDto("This email is used", null,
+							HttpStatus.BAD_REQUEST.value()));
+		}
+
+		if (partnerDto != null) {
+			// Partner already exists
+			AuthenticationResponseDto authenticationResponseDto = authenticationService
+					.loginGoogleForPartner(googleUserInfoDto);
+			return ResponseEntity
+					.ok(new ResponseDto("Partner already exists", authenticationResponseDto,
+							HttpStatus.OK.value()));
+		} else {
+			// User not exists
+			PartnerDto res = partnerService.addGoogleUserInfor(googleUserInfoDto);
+			if (res == null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+						.body(new ResponseDto("Add partner failed", null,
+								HttpStatus.BAD_REQUEST.value()));
+			}
+			// Create wallet
+			WalletDto walletDto = new WalletDto();
+			walletDto.setUserId(res.getPartnerId());
+			walletDto.setMoney(0.0);
+			walletDto.setStatus("ACTIVE");
+			walletDto.setUserId(null);
+			walletService.addWalletToUser(walletDto);
+
+			AuthenticationResponseDto authenticationResponseDto = authenticationService
+					.loginGoogleForPartner(googleUserInfoDto);
+			return ResponseEntity
+					.ok(new ResponseDto("Partner already exists", authenticationResponseDto,
+							HttpStatus.OK.value()));
+		}
+	}
 }

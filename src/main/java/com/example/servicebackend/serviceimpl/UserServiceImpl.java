@@ -2,8 +2,10 @@ package com.example.servicebackend.serviceimpl;
 
 import com.example.servicebackend.model.dto.GoogleUserInfoDto;
 import com.example.servicebackend.model.dto.UserDto;
+import com.example.servicebackend.model.entity.Partner;
 import com.example.servicebackend.model.entity.User;
 import com.example.servicebackend.model.mapper.UserMapper;
+import com.example.servicebackend.repository.PartnerRepository;
 import com.example.servicebackend.repository.UserRepository;
 import com.example.servicebackend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PartnerRepository partnerRepository;
 
     @Override
     public UserDto getUserById(String userId) {
@@ -27,6 +30,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto addUser(UserDto userDto) {
         User user = UserMapper.INSTANCE.toEntity(userDto);
+        User existUser = userRepository.findById(user.getUserId()).orElse(null);
+        Partner existPartner = partnerRepository.findById(user.getUserId()).orElse(null);
+
+        if (existUser != null || existPartner != null) {
+            return null;
+        }
+        
         User newUser = userRepository.save(user);
         return UserMapper.INSTANCE.toDto(newUser);
     }
