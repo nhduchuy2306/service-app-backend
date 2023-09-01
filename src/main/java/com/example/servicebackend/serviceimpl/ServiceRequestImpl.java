@@ -13,6 +13,10 @@ import com.example.servicebackend.repository.ServiceRequestRepository;
 import com.example.servicebackend.repository.UserDiscountAssociationRepository;
 import com.example.servicebackend.service.ServiceRequestService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,5 +51,11 @@ public class ServiceRequestImpl implements ServiceRequestService {
             return ServiceRequestMapper.INSTANCE.toDto(serviceRequest);
         }
         return null;
+    }
+
+    @Override
+    public List<ServiceRequestDto> getAllServiceRequests() {
+        List<ServiceRequest> serviceRequests = serviceRequestRepository.findAll();
+        return serviceRequests.stream().map(ServiceRequestMapper.INSTANCE::toDto).collect(Collectors.toList());
     }
 }

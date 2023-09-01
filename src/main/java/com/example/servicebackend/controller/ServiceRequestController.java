@@ -10,6 +10,9 @@ import com.example.servicebackend.service.UserDiscountService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +48,23 @@ public class ServiceRequestController {
         }
 
         return ResponseEntity.ok(new ResponseDto("Apply discount successfully",res, HttpStatus.OK.value()));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getAllServiceRequests() {
+        List<ServiceRequestDto> res = serviceRequestService.getAllServiceRequests();
+        if(res == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Get all service requests failed",null, HttpStatus.BAD_REQUEST.value()));
+        }
+        return ResponseEntity.ok(new ResponseDto("Get all service requests successfully",res, HttpStatus.OK.value()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getServiceRequestByServiceRequestId(@PathVariable("id") Long id) {
+        ServiceRequestDto res = serviceRequestService.getServiceRequestByServiceRequestId(id);
+        if(res == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Get service request by service request id failed",null, HttpStatus.BAD_REQUEST.value()));
+        }
+        return ResponseEntity.ok(new ResponseDto("Get service request by service request id successfully",res, HttpStatus.OK.value()));
     }
 }

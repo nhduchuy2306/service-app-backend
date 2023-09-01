@@ -20,8 +20,10 @@ public class SwaggerConfiguration {
     }
 
     private Info apiInfo() {
-        return new Info().title("Service Backend")
+        return new Info()
+                .title("Service Backend")
                 .description("Service Backend for the Service Frontend")
+                .termsOfService("http://swagger.io/terms/")
                 .version("1.0.0");
     }
 }
