@@ -104,11 +104,11 @@ public class AuthController {
 			}
 			// Create wallet
 			WalletDto walletDto = new WalletDto();
-			walletDto.setUserId(res.getPartnerId());
+			walletDto.setPartnerId(res.getPartnerId());
 			walletDto.setMoney(0.0);
 			walletDto.setStatus("ACTIVE");
 			walletDto.setUserId(null);
-			walletService.addWalletToUser(walletDto);
+			walletService.addWalletToPartner(walletDto);
 
 			AuthenticationResponseDto authenticationResponseDto = authenticationService
 					.loginGoogleForPartner(googleUserInfoDto);
