@@ -54,7 +54,7 @@ public class AuthController {
 			walletDto.setMoney(0.0);
 			walletDto.setStatus("ACTIVE");
 			walletDto.setPartnerId(null);
-			walletService.addWalletToUser(walletDto);
+			walletService.addWalletToUser(walletDto); 
 
 			// Create reward point
 			rewardPointService.initRewardPoint(res.getUserId());
