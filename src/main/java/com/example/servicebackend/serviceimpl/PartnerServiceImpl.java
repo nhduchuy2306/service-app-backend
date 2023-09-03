@@ -50,6 +50,7 @@ public class PartnerServiceImpl implements PartnerService {
         partnerDto.setImage(googleUserInfoDto.getPhotoURL());
         partnerDto.setPhoneNumber(googleUserInfoDto.getPhoneNumber());
         partnerDto.setLocation(googleUserInfoDto.getProviderId());
+        partnerDto.setStatus("ACTIVE");
 
         Partner partner = PartnerMapper.INSTANCE.toEntity(partnerDto);
         Partner newPartner = partnerRepository.save(partner);
