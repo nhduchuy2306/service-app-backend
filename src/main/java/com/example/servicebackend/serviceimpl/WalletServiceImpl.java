@@ -39,8 +39,8 @@ public class WalletServiceImpl implements WalletService {
         Wallet wallet = walletRepository.findByPartnerId(walletDto.getPartnerId());
         if (wallet != null) {
             wallet.setMoney(walletDto.getMoney());
-            walletRepository.save(wallet);
-            return WalletMapper.INSTANCE.toDto(wallet);
+            Wallet updateWallet = walletRepository.save(wallet);
+            return WalletMapper.INSTANCE.toDto(updateWallet);
         }
         return null;
     }

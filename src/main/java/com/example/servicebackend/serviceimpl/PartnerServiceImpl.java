@@ -55,4 +55,33 @@ public class PartnerServiceImpl implements PartnerService {
         Partner newPartner = partnerRepository.save(partner);
         return PartnerMapper.INSTANCE.toDto(newPartner);
     }
+
+    @Override
+    public PartnerDto updatePartner(PartnerDto partnerDto) {
+        Partner existPartner = partnerRepository.findById(partnerDto.getPartnerId()).orElse(null);
+        if(partnerDto.getPartnerName() == null){
+            partnerDto.setPartnerName(existPartner.getPartnerName());
+        }
+        if(partnerDto.getEmail() == null){
+            partnerDto.setEmail(existPartner.getEmail());
+        }
+        if(partnerDto.getImage() == null){
+            partnerDto.setImage(existPartner.getImage());
+        }
+        if(partnerDto.getPhoneNumber() == null){
+            partnerDto.setPhoneNumber(existPartner.getPhoneNumber());
+        }
+        if(partnerDto.getLocation() == null){
+            partnerDto.setLocation(existPartner.getLocation());
+        }
+        if(partnerDto.getGender() == null){
+            partnerDto.setGender(existPartner.getGender());
+        }
+        if(partnerDto.getStatus() == null){
+            partnerDto.setStatus(existPartner.getStatus());
+        }
+        Partner partner = PartnerMapper.INSTANCE.toEntity(partnerDto);
+        Partner updatePartner = partnerRepository.save(partner);
+        return PartnerMapper.INSTANCE.toDto(updatePartner);
+    }
 }

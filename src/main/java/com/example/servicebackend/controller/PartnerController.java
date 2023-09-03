@@ -36,6 +36,16 @@ public class PartnerController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Wallet not found", null, HttpStatus.NOT_FOUND.value()));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updatePartner(@PathVariable("id") String partnerId, @RequestBody PartnerDto partnerDto) {
+        partnerDto.setPartnerId(partnerId);
+        PartnerDto res = partnerService.updatePartner(partnerDto);
+        if (res == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update partner failed", null, HttpStatus.BAD_REQUEST.value()));
+        }
+        return ResponseEntity.ok(new ResponseDto("Update partner successfully", res, HttpStatus.OK.value()));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getPartnerById(@PathVariable("id") String partnerId) {
         PartnerDto partnerDto = partnerService.getPartnerById(partnerId);

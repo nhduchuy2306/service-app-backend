@@ -9,4 +9,6 @@ public interface PartnerService {
     PartnerDto addPartner(PartnerDto partnerDto);
 
     PartnerDto addGoogleUserInfor(GoogleUserInfoDto googleUserInfoDto);
+
+    PartnerDto updatePartner(PartnerDto partnerDto);
 }
