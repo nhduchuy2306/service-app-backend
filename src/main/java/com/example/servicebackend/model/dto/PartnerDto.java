@@ -16,4 +16,5 @@ public class PartnerDto {
     private String image;
     private String phoneNumber;
     private String status;
+    private String idNumber;
 }

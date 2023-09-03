@@ -40,6 +40,9 @@ public class Partner implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "id_number")
+    private String idNumber;
+
     @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Booking> bookings;
