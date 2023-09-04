@@ -1,6 +1,5 @@
 package com.example.servicebackend.controller;
 
-import com.example.servicebackend.model.dto.ResponseDto;
 import com.example.servicebackend.model.dto.ServiceRequestDto;
 import com.example.servicebackend.model.dto.UserDiscountAssociationDto;
 import com.example.servicebackend.model.dto.UserDiscountDto;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +28,7 @@ public class ServiceRequestController {
     @PostMapping("")
     public ResponseEntity<?> addServiceRequest(@RequestBody ServiceRequestDto serviceRequestDto) {
         ServiceRequestDto res = serviceRequestService.addServiceRequest(serviceRequestDto);
-        return ResponseEntity.created(null).body(new ResponseDto("Add Service Request successfully",res, HttpStatus.CREATED.value()));
+        return ResponseEntity.created(null).body(res);
     }
 
     @PutMapping("/{serviceRequestId}/apply-discount/{userDiscountId}")
@@ -40,31 +38,31 @@ public class ServiceRequestController {
         UserDiscountAssociationDto res = serviceRequestService.applyDiscount(serviceRequestDto, userDiscountDto);
 
         if(serviceRequestDto == null && userDiscountDto == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Apply discount failed",null, HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.badRequest().body(null);
         }
 
         if(res == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Apply discount failed",null, HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.badRequest().body(null);
         }
 
-        return ResponseEntity.ok(new ResponseDto("Apply discount successfully",res, HttpStatus.OK.value()));
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("")
     public ResponseEntity<?> getAllServiceRequests() {
         List<ServiceRequestDto> res = serviceRequestService.getAllServiceRequests();
         if(res == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Get all service requests failed",null, HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.badRequest().body(null);
         }
-        return ResponseEntity.ok(new ResponseDto("Get all service requests successfully",res, HttpStatus.OK.value()));
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getServiceRequestByServiceRequestId(@PathVariable("id") Long id) {
         ServiceRequestDto res = serviceRequestService.getServiceRequestByServiceRequestId(id);
         if(res == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Get service request by service request id failed",null, HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.badRequest().body(null);
         }
-        return ResponseEntity.ok(new ResponseDto("Get service request by service request id successfully",res, HttpStatus.OK.value()));
+        return ResponseEntity.ok(res);
     }
 }

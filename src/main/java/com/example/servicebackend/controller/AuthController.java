@@ -29,24 +29,18 @@ public class AuthController {
 		UserDto userDto = userService.getUserById(googleUserInfoDto.getUid());
 		PartnerDto partnerDto = partnerService.getPartnerById(googleUserInfoDto.getUid());
 		if (partnerDto != null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new ResponseDto("This email is used", null,
-							HttpStatus.BAD_REQUEST.value()));
+			return ResponseEntity.badRequest().body(null);
 		}
 		if (userDto != null) {
 			// User already exists
 			AuthenticationResponseDto authenticationResponseDto = authenticationService
 					.loginGoogleForUser(googleUserInfoDto);
-			return ResponseEntity
-					.ok(new ResponseDto("User already exists", authenticationResponseDto,
-							HttpStatus.OK.value()));
+			return ResponseEntity.ok(authenticationResponseDto);
 		} else {
 			// User not exists
 			UserDto res = userService.addGoogleUserInfor(googleUserInfoDto);
 			if (res == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-						.body(new ResponseDto("Add user failed", null,
-								HttpStatus.BAD_REQUEST.value()));
+				return ResponseEntity.badRequest().body(null);
 			}
 			// Create wallet
 			WalletDto walletDto = new WalletDto();
@@ -54,7 +48,7 @@ public class AuthController {
 			walletDto.setMoney(0.0);
 			walletDto.setStatus("ACTIVE");
 			walletDto.setPartnerId(null);
-			walletService.addWalletToUser(walletDto); 
+			walletService.addWalletToUser(walletDto);
 
 			// Create reward point
 			rewardPointService.initRewardPoint(res.getUserId());
@@ -70,9 +64,7 @@ public class AuthController {
 
 			AuthenticationResponseDto authenticationResponseDto = authenticationService
 					.loginGoogleForUser(googleUserInfoDto);
-			return ResponseEntity.created(null).body(
-					new ResponseDto("Add user successfully", authenticationResponseDto,
-							HttpStatus.CREATED.value()));
+			return ResponseEntity.created(null).body(authenticationResponseDto);
 		}
 	}
 
@@ -82,18 +74,14 @@ public class AuthController {
 		PartnerDto partnerDto = partnerService.getPartnerById(googleUserInfoDto.getUid());
 
 		if (userDto != null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new ResponseDto("This email is used", null,
-							HttpStatus.BAD_REQUEST.value()));
+			return ResponseEntity.badRequest().body(null);
 		}
 
 		if (partnerDto != null) {
 			// Partner already exists
 			AuthenticationResponseDto authenticationResponseDto = authenticationService
 					.loginGoogleForPartner(googleUserInfoDto);
-			return ResponseEntity
-					.ok(new ResponseDto("Partner already exists", authenticationResponseDto,
-							HttpStatus.OK.value()));
+			return ResponseEntity.ok(authenticationResponseDto);
 		} else {
 			// User not exists
 			PartnerDto res = partnerService.addGoogleUserInfor(googleUserInfoDto);
@@ -112,9 +100,7 @@ public class AuthController {
 
 			AuthenticationResponseDto authenticationResponseDto = authenticationService
 					.loginGoogleForPartner(googleUserInfoDto);
-			return ResponseEntity
-					.ok(new ResponseDto("Partner already exists", authenticationResponseDto,
-							HttpStatus.OK.value()));
+			return ResponseEntity.ok(authenticationResponseDto);
 		}
 	}
 }

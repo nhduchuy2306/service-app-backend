@@ -1,13 +1,11 @@
 package com.example.servicebackend.controller;
 
-import com.example.servicebackend.model.dto.ResponseDto;
 import com.example.servicebackend.model.dto.ServiceJobDto;
 import com.example.servicebackend.service.ServiceJobService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,30 +23,36 @@ public class ServiceJobController {
     @GetMapping("")
     public ResponseEntity<?> getAllServices() {
         List<ServiceJobDto> serviceJobDtos = serviceJobService.getAllServices();
-        return ResponseEntity.ok(new ResponseDto("Get all services successfully", serviceJobDtos, HttpStatus.OK.value()));
+        if (serviceJobDtos == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(serviceJobDtos);
     }
 
     @PostMapping("")
     public ResponseEntity<?> addService(@RequestBody ServiceJobDto serviceJobDto) {
         ServiceJobDto res = serviceJobService.addService(serviceJobDto);
-        return ResponseEntity.created(null).body(new ResponseDto("Add service successfully", res, HttpStatus.CREATED.value()));
+        if (res == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.created(null).body(res);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getServiceById(@PathVariable Long id) {
         ServiceJobDto serviceJobDto = serviceJobService.getServiceById(id);
         if (serviceJobDto == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Service not found", null, HttpStatus.NOT_FOUND.value()));
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(new ResponseDto("Get service successfully", serviceJobDto, HttpStatus.OK.value()));
+        return ResponseEntity.ok(serviceJobDto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateService(@PathVariable("id") Long id, @RequestBody ServiceJobDto serviceJobDto) {
         ServiceJobDto res = serviceJobService.updateService(id, serviceJobDto);
         if (res == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Service not found", null, HttpStatus.NOT_FOUND.value()));
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(new ResponseDto("Update service successfully", res, HttpStatus.OK.value()));
+        return ResponseEntity.ok(res);
     }
 }

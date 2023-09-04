@@ -9,7 +9,6 @@ import com.example.servicebackend.service.WalletService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +30,9 @@ public class PartnerController {
     public ResponseEntity<?> getWalletByPartnerId(@PathVariable("id") String id) {
         WalletDto walletDto = walletService.getWalletByPartnerId(id);
         if (walletDto != null) {
-            return ResponseEntity.ok(new ResponseDto("Get wallet successfully", walletDto, HttpStatus.OK.value()));
+            return ResponseEntity.ok(walletDto);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Wallet not found", null, HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
@@ -41,9 +40,9 @@ public class PartnerController {
         partnerDto.setPartnerId(partnerId);
         PartnerDto res = partnerService.updatePartner(partnerDto);
         if (res == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update partner failed", null, HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(new ResponseDto("Update partner successfully", res, HttpStatus.OK.value()));
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/{id}")
@@ -52,19 +51,25 @@ public class PartnerController {
         if (partnerDto != null) {
             return ResponseEntity.ok(partnerDto);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Partner not found", null, HttpStatus.NOT_FOUND.value()));
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}/notifications")
     public ResponseEntity<?> getAllNotificationsByPartnerId(@PathVariable("id") String partnerId) {
         List<NotificationDto> notificationDtos = notificationService.getAllNotificationsByPartnerId(partnerId);
-        return ResponseEntity.ok(new ResponseDto("Get all notifications successfully", notificationDtos, HttpStatus.OK.value()));
+        if(notificationDtos == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(notificationDtos);
     }
 
     @GetMapping("/{id}/bookings")
     public ResponseEntity<?> getAllBookings(@PathVariable("id") String partnerId) {
         List<BookingDto> bookingDtos = bookingService.findAllBookingByPartnerId(partnerId);
-        return ResponseEntity.ok(new ResponseDto("Get all bookings successfully", bookingDtos, HttpStatus.OK.value()));
+        if(bookingDtos == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(bookingDtos);
     }
 
     @PutMapping("/{id}/wallets/money")
@@ -72,8 +77,8 @@ public class PartnerController {
         walletDto.setPartnerId(partnerId);
         WalletDto res = walletService.updateMoneyForPartner(walletDto);
         if (res == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto("Update money failed", null, HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(new ResponseDto("Update money successfully", res, HttpStatus.OK.value()));
+        return ResponseEntity.ok(res);
     }
 }
