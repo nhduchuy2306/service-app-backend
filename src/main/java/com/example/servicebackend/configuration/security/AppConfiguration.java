@@ -34,6 +34,8 @@ public class AppConfiguration {
         http.authorizeHttpRequests()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .antMatchers("/api/v1/auth/**").permitAll()
+                .antMatchers("/api/v1/users/**").permitAll()
+                .antMatchers("/api/v1/partners/**").permitAll()
                 .anyRequest()
                 .authenticated();
 
